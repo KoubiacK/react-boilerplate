@@ -9,7 +9,7 @@ import { style } from './App.css' // import css
 // custom component
 import NavBar from '../NavBar/NavBar.jsx'
 
-var store_1 = createStore(reducer, {counter: 0},window.devToolsExtension && window.devToolsExtension())
+let store_1 = createStore(reducer, {counter: 0},window.devToolsExtension && window.devToolsExtension())
 // import json config
 var julha_config = require('json!.././.././julha_config.json')
 
@@ -27,7 +27,7 @@ increment() {
   this.setState({counter: store_1.getState().counter})
 }
 decrement() {
-  if (this.state.counter >= 1) {
+  if (this.state.counter != 0) {
     store_1.dispatch({type: 'DECREMENT'})
     this.setState({counter: store_1.getState().counter})
     }
@@ -47,13 +47,16 @@ decrement() {
 
     <NavBar />
 
-    <Grid style={{background: '#f8f8f8'}}>
-      <h2>App [Inner]</h2>
+    <Grid style={{background: '#f8f8f8', minHeight: '100vh'}}>
+    <Row>
+      {this.props.children}
+    </Row>
+      {/* <h2>App [Inner]</h2>
 
       <Row className="show-grid">
-        <Col xs={12} md={4}><Image src="http://loremflickr.com/360/200/deep,space" responsive thumbnail /></Col>
-        <Col xs={12} md={4}><Image src="http://loremflickr.com/360/200/deep,space?random=1" responsive thumbnail /></Col>
-        <Col xs={12} md={4}><Image src="http://loremflickr.com/360/200/deep,space?random=2" responsive thumbnail /></Col>
+        <Col xs={12} md={4}><Image src="http://lorempicsum.com/up/350/200/1" responsive thumbnail /></Col>
+        <Col xs={12} md={4}><Image src="http://lorempicsum.com/nemo/350/200/1" responsive thumbnail /></Col>
+        <Col xs={12} md={4}><Image src="http://lorempicsum.com/futurama/350/200/1" responsive thumbnail /></Col>
       </Row>
       <Row>
         <Col md={9}>
@@ -75,7 +78,7 @@ decrement() {
         </Col>
       </Row>
 
-      {this.props.children}
+      {this.props.children} */}
 
     </Grid>
 

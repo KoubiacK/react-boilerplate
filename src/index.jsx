@@ -1,24 +1,3 @@
-/*import React from 'react';
-import ReactDOM from 'react-dom';
-import Calendar from './Calendar';
-import Login from './Login';
-
-var page = window.location.pathname.substr(1);
-
-// rooting des pages
-switch (page) {
-    case 'calendar':   ReactDOM.render(<Calendar />, document.getElementById('root')); break;
-    default:      ReactDOM.render(<Login />, document.getElementById('root'));
-}*/
-
-//ReactDOM.render(<App />, document.getElementById('root'));
-
-
-//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////
-
-
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
@@ -29,9 +8,11 @@ import { createStore } from 'redux'
 import App from './component/App/App.jsx'
 import Users from './component/Users/Users.jsx'
 import User from './component/User/User.jsx'
-import ShowTodo from './component/Todo/ShowTodo.jsx'
+import Login from './component/Login/Login.jsx'
 
 let store = createStore(() => {})
+
+
 class About extends Component {
     render() {
         return (
@@ -64,6 +45,7 @@ render((
           <Route path="/user/:userId" component={User}/>
         </Route>
         <Route path="about" component={About}/>
+        <Route path="login" component={Login}/>
         <Route path="*" component={NoMatch}/>
       </Route>
     </Router>

@@ -31,15 +31,15 @@ module.exports = {
             //{ test: /\.json$/,  loaders: 'json-loader', exclude: /node_modules/, include: path.join(__dirname, 'src')}, // json-loader >> bug quand on active cette ligne
             {
               test: /\.css$/,
-              loader: "style-loader!css-loader",
+              loader: 'style-loader!css-loader',
               exclude: /node_modules/, include: path.join(__dirname, 'src') }, // css compiler
 
             // the url-loader uses DataUrls.
             // the file-loader emits files.
-            { test: /\.(woff|woff2)$/,  loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-            { test: /\.ttf$/, loader: "file-loader" },
-            { test: /\.eot$/, loader: "file-loader" },
-            { test: /\.svg$/, loader: "file-loader" }
+            { test: /\.(woff|woff2)$/,  loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
+            { test: /\.ttf$/, loader: 'file-loader' },
+            { test: /\.eot$/, loader: 'file-loader' },
+            { test: /\.svg$/, loader: 'file-loader' }
         ]
     }
 };

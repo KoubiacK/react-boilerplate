@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 
 
-class Users extends Component {
+export default class Users extends Component {
 constructor(props) {
   super(props)
 }
@@ -53,6 +53,3 @@ constructor(props) {
 Users.contextTypes = {
     julha_config: React.PropTypes.object
 }
-
-// export the component
-module.exports = Users
