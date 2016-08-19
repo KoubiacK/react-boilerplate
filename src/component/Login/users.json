@@ -1,5 +1,6 @@
-/*{
+{
   "users": [
-    { "id": 1, "name": "José", "password": "0000"}
+    { "id": 1, "name": "José", "password": "0000" },
+    { "id": 2, "name": "Jacky", "password": "0000" }
   ]
-}*/
+}

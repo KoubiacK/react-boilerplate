@@ -5,15 +5,18 @@ import { Image, ButtonToolbar, Button, Carousel, Grid, Row, Col } from 'react-bo
 import { createStore, combineReducers } from 'redux'
 import reducer from '../reducers'
 import { style } from './App.css' // import css
-
+//config
+var julha_config = require('json!.././.././julha_config.json')
 // custom component
 import NavBar from '../NavBar/NavBar.jsx'
 
-let store_1 = createStore(reducer, {counter: 0},window.devToolsExtension && window.devToolsExtension())
-// import json config
-var julha_config = require('json!.././.././julha_config.json')
 
+//Création du ReduxStore
+// ,window.devToolsExtension && window.devToolsExtension() <= ReduxDevTools
+let store_1 = createStore(reducer, {counter: 0},window.devToolsExtension && window.devToolsExtension())
 console.log('Store state after initialisation:', store_1.getState())
+
+
 class App extends Component {
 constructor(props) {
   super()
