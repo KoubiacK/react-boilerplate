@@ -24,7 +24,8 @@
         { "key": 4, "title": "/admin", "to": "/admin"},
         { "key": 5, "title": "/users", "to": "/users"},
         { "key": 6, "title": "/about", "to": "/about"},
-        { "key": 7, "title": "/login", "to": "/login"}
+        { "key": 7, "title": "/login", "to": "/login"},
+        { "key": 8, "title": "/counter", "to": "/counter"}
     ],
 
     "ACTIVE": { "color": "red" }

@@ -5,10 +5,12 @@ import { Router, Route, Link, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
+//Import Components
 import App from './component/App/App.jsx'
 import Users from './component/Users/Users.jsx'
 import User from './component/User/User.jsx'
 import Login from './component/Login/Login.jsx'
+import Counter from './component/Counter/Counter.jsx'
 
 let store = createStore(() => {})
 
@@ -45,6 +47,7 @@ render((
           <Route path="/user/:userId" component={User}/>
         </Route>
         <Route path="about" component={About}/>
+        <Route path="counter" component={Counter}/>
         <Route path="login" component={Login}/>
         <Route path="*" component={NoMatch}/>
       </Route>
