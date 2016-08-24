@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:100,400);
+
+$main-bg-color: #FFFFFC;
+$accent-darkBrown: #262322;
+$accent-paleGreen: #ACBDBA;
+
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: $main-bg-color;
+}
+
+.navbar {
+  background-color: $accent-darkBrown;
+  color: $main-bg-color;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: $main-bg-color;
+}
+.navbar-default .navbar-nav>li>a:hover {
+  color: #ACBDBA;
+}
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
+  background-color: $accent-paleGreen;
+  color: $accent-darkBrown;
+}
