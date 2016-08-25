@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:100,400);
+@import url(https://fonts.googleapis.com/css?family=Raleway:100,400,500);
 
 $main-bg-color: #FFFFFC;
 $accent-darkBrown: #262322;
@@ -13,10 +13,13 @@ body {
 .navbar {
   background-color: $accent-darkBrown;
   color: $main-bg-color;
+  margin-bottom: 0;
 }
 
 .navbar-default .navbar-nav>li>a {
   color: $main-bg-color;
+  font-size: 15px;
+  font-weight: 500;
 }
 .navbar-default .navbar-nav>li>a:hover {
   color: #ACBDBA;
@@ -26,4 +29,8 @@ body {
 .navbar-default .navbar-nav>.active>a:hover {
   background-color: $accent-paleGreen;
   color: $accent-darkBrown;
+}
+
+.counter-even-label h4 {
+  font-weight: 100;
 }

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import App from './App'
 import Home from './Home'
 import Counter from './Counter'
+import Login from './Login'
+
 
 /**
  * Component is exported for conditional usage in Root.js
@@ -20,8 +22,10 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router history={browserHistory}>
           <Route path="/" component={App}>
-            <Route path="Home" component={Home}/>
-            <Route path="Counter" component={Counter}/>
+            <IndexRoute component={Home}/>
+            <Route path="home" component={Home}/>
+            <Route path="counter" component={Counter}/>
+            <Route path="login" component={Login}/>
           </Route>
         </Router>
       </Provider>

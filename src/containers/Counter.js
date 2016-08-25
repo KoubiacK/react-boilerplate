@@ -3,15 +3,22 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Counter from '../components/Counter'
 import * as CounterActions from '../actions/CounterActions'
+//Bootstap imports
+import { PageHeader } from 'react-bootstrap'
 
 export default class CounterContainer extends Component {
   render() {
     const { counter, actions } = this.props
     return (
+      <div>
+          <PageHeader>Counter</PageHeader>
           <Counter counter={counter} actions={actions} />
+      </div>
     )
   }
 }
+
+
 Counter.propTypes = {
   counter: PropTypes.number.isRequired,
   actions: PropTypes.object.isRequired
@@ -53,4 +60,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Counter);
+)(CounterContainer);

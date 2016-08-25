@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import counter from './counter';
-
+import login from './login'
 /**
  * combineReducers is important to understand. As your app might grow in size
  * and complexity, you will likely begin to split your reducers into separate
@@ -16,6 +16,7 @@ import counter from './counter';
  */
 const rootReducer = combineReducers({
   counter, // you might be used to: counter: counter,
+  login
 })
 
 export default rootReducer;
