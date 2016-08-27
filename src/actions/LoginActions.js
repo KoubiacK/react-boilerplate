@@ -1,8 +1,11 @@
-const LOGIN = 'LOGIN'
-const POPULATE = 'POPULATE'
+export const LOGIN = 'LOGIN'
+export const SET_TOKEN = 'SET_TOKEN'
 
-export function auth() {
-  return {
-    type: LOGIN
-  };
+export function Authenticate(email, password, tkn) {
+  return dispatch => dispatch({
+    type: LOGIN,
+    email,
+    password,
+    tkn
+  })
 }

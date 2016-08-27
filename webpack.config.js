@@ -6,7 +6,7 @@ module.exports = {
     entry: [
         'webpack-dev-server/client?http://localhost:8080',
         'webpack/hot/only-dev-server',
-        './src/index.jsx',
+        './src/index',
     ],
     output: {
         path: path.join(__dirname, 'dist'),
@@ -27,13 +27,17 @@ module.exports = {
               test: /\.jsx?$/,
               loaders: ['react-hot', 'babel'],
               exclude: /node_modules/,
-              include: path.join(__dirname, 'src')},
-            //{ test: /\.json$/,  loaders: 'json-loader', exclude: /node_modules/, include: path.join(__dirname, 'src')}, // json-loader >> bug quand on active cette ligne
+              include: path.join(__dirname, 'src')
+            },
             {
               test: /\.css$/,
               loader: 'style-loader!css-loader',
-              exclude: /node_modules/, include: path.join(__dirname, 'src') }, // css compiler
-
+              exclude: /node_modules/, include: path.join(__dirname, 'src')
+            },
+            {
+              test: /\.scss$/,
+              loader: 'style!css!sass'
+            },
             // the url-loader uses DataUrls.
             // the file-loader emits files.
             { test: /\.(woff|woff2)$/,  loader: 'url-loader?limit=10000&mimetype=application/font-woff' },

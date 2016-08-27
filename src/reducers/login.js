@@ -1,10 +1,26 @@
-const LOGIN = 'LOGIN'
+import { LOGIN } from '../actions/LoginActions'
 
-export default function login(state = false, action) {
+const initialState = {
+  isAuthenticated: false,
+  token: null,
+  user:{
+    email: '',
+    password: ''
+  }
+}
+export default function auth(state = initialState, action) {
+  console.log(state);
   switch (action.type) {
-  case LOGIN:
-    return !state;
-  default:
-    return state;
+    case LOGIN:
+      return Object.assign({}, state, {
+        isAuthenticated: true,
+        token: action.tkn,
+        user:{
+          email: action.email,
+          password: action.password
+        }
+      })
+    default:
+      return state;
   }
 }

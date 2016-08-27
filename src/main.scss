@@ -24,13 +24,15 @@ body {
 .navbar-default .navbar-nav>li>a:hover {
   color: #ACBDBA;
 }
-.navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.active>a:focus,
-.navbar-default .navbar-nav>.active>a:hover {
-  background-color: $accent-paleGreen;
+#nav-dropdown {
+  background-color: #e7e7e7;
   color: $accent-darkBrown;
 }
-
+// DropDown Colors
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+  color: $main-bg-color;
+  background-color: $accent-paleGreen;
+}
 .counter-even-label h4 {
   font-weight: 100;
 }

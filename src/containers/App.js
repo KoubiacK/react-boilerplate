@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import Counter from '../components/Counter'
+import {connect} from 'react-redux'
 //Bootstap imports
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap'
-import { Grid, Row, Navbar,Nav, NavItem, Glyphicon } from 'react-bootstrap'
+import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 
 /**
  * It is common practice to have a 'Root' container/component require our main App (this one).
@@ -11,20 +10,8 @@ import { Grid, Row, Navbar,Nav, NavItem, Glyphicon } from 'react-bootstrap'
  * component to make the Redux store available to the rest of the app.
  */
  export default class App extends Component {
-   constructor(props, context) {
-     super(props, context)
-     this.state = {
-       isLogged: this.props.login
-     }
-   }
    render() {
-     // we can use ES6's object destructuring to effectively 'unpack' our props
-     const {login, actions} = this.props
-     var menuLogin = new String('Login')
-     menuLogin.profil = 'Profil'
-     menuLogin.icon = <Glyphicon glyph='user' />
-     var isLogged = this.props.login ? menuLogin.icon : menuLogin
-     console.log(menuLogin.icon);
+     console.log(this.props);
      return (
        <div className="main-app-container">
          <div className="main-app-nav">
@@ -38,11 +25,27 @@ import { Grid, Row, Navbar,Nav, NavItem, Glyphicon } from 'react-bootstrap'
              </LinkContainer>
              <NavItem disabled>ToDo List</NavItem>
              </Nav>
-             <Nav pullRight>
-               <LinkContainer to={'/Login'}>
-               <NavItem href="/login">{isLogged}</NavItem>
-               </LinkContainer>
-             </Nav>
+             {!this.props.isAuthenticated &&
+               <Nav pullRight>
+                 <LinkContainer to={'/Login'}>
+                 <NavItem href="/login">
+                   Login
+                 </NavItem>
+                 </LinkContainer>
+               </Nav>
+             }
+             {this.props.isAuthenticated &&
+               <Nav pullRight>
+                 <NavDropdown eventKey="4" title={this.props.user} id="nav-dropdown">
+                   <MenuItem eventKey="4.1">Action</MenuItem>
+                   <MenuItem eventKey="4.2">Another action</MenuItem>
+                   <MenuItem eventKey="4.3">Something else here</MenuItem>
+                   <MenuItem divider />
+                   <MenuItem eventKey="4.4">{this.props.token}</MenuItem>
+                 </NavDropdown>
+               </Nav>
+             }
+
            </Navbar>
          </div>
          <Grid>
@@ -55,14 +58,11 @@ import { Grid, Row, Navbar,Nav, NavItem, Glyphicon } from 'react-bootstrap'
      )
    }
  }
- App.propTypes = {
-   login: PropTypes.bool.isRequired
- }
- function mapStateToProps(state) {
-   return {
-     login: state.login
-   }
- }
+ const mapStateToProps = (state) => ({
+     isAuthenticated: state.login.isAuthenticated,
+     token: state.login.token,
+     user: state.login.user.email
+ })
  export default connect(
    mapStateToProps
  )(App);
