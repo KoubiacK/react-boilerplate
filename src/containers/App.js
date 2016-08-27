@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as LoginActions from '../actions/LoginActions'
 //Bootstap imports
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap'
 import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
@@ -10,8 +12,29 @@ import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-boo
  * component to make the Redux store available to the rest of the app.
  */
  export default class App extends Component {
+   constructor(props) {
+     super(props)
+     this.state = { isAuthenticated: localStorage ? true : false}
+   }
+   componentDidMount() {
+     var wasAuth = localStorage ? true : false
+     if (wasAuth) {
+       var email = JSON.parse(localStorage.getItem('auth:user')),
+           password = '',
+           tkn = JSON.parse(localStorage.getItem('auth:tkn'))
+       this.props.actions.Login(email, password, tkn)
+     }
+     this.setState({isAuthenticated: wasAuth})
+   }
+   componentWillReceiveProps(nextProps) {
+     this.setState({isAuthenticated: nextProps.isAuthenticated})
+   }
+
+   handleLogout() {
+     this.props.actions.Logout()
+     localStorage.clear()
+   }
    render() {
-     console.log(this.props);
      return (
        <div className="main-app-container">
          <div className="main-app-nav">
@@ -37,11 +60,17 @@ import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-boo
              {this.props.isAuthenticated &&
                <Nav pullRight>
                  <NavDropdown eventKey="4" title={this.props.user} id="nav-dropdown">
-                   <MenuItem eventKey="4.1">Action</MenuItem>
+                   <LinkContainer to={'/Login'}>
+                     <MenuItem>Login Page</MenuItem>
+                   </LinkContainer>
                    <MenuItem eventKey="4.2">Another action</MenuItem>
                    <MenuItem eventKey="4.3">Something else here</MenuItem>
                    <MenuItem divider />
-                   <MenuItem eventKey="4.4">{this.props.token}</MenuItem>
+                   <MenuItem eventKey="4.4">
+                     <Navbar.Link href='#' onClick={() => {this.handleLogout()}}>
+                       LogOut
+                     </Navbar.Link>
+                   </MenuItem>
                  </NavDropdown>
                </Nav>
              }
@@ -63,6 +92,12 @@ import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-boo
      token: state.login.token,
      user: state.login.user.email
  })
+ function mapDispatchToProps(dispatch) {
+   return {
+     actions: bindActionCreators(LoginActions, dispatch)
+   };
+ }
  export default connect(
-   mapStateToProps
+   mapStateToProps,
+   mapDispatchToProps
  )(App);

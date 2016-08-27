@@ -1,4 +1,4 @@
-import { LOGIN } from '../actions/LoginActions'
+import { LOGIN, LOGOUT } from '../actions/LoginActions'
 
 const initialState = {
   isAuthenticated: false,
@@ -9,7 +9,6 @@ const initialState = {
   }
 }
 export default function auth(state = initialState, action) {
-  console.log(state);
   switch (action.type) {
     case LOGIN:
       return Object.assign({}, state, {
@@ -20,6 +19,8 @@ export default function auth(state = initialState, action) {
           password: action.password
         }
       })
+      case LOGOUT:
+      return initialState
     default:
       return state;
   }
