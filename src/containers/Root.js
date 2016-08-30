@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { createHistory, useBasename } from 'history'
 import App from './App'
 import Home from './Home'
 import Counter from './Counter'
 import Login from './Login'
+import LandingPage from './LandingPage'
 
+
+//Definition browserHistory selon NODE_ENV
+const history = process.env.NODE_ENV === 'production' ?
+useBasename(createHistory)({
+  basename: '/koub-react/'}) :
+  browserHistory
 
 /**
  * Component is exported for conditional usage in Root.js
@@ -20,10 +28,11 @@ export default class Root extends Component {
        * calls in component hierarchy below.
        */
       <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={history}>
           <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="home" component={Home}/>
+            <Route path="landingpage" component={LandingPage}/>
             <Route path="counter" component={Counter}/>
             <Route path="login" component={Login}/>
           </Route>

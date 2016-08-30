@@ -6,100 +6,105 @@ import * as LoginActions from '../actions/LoginActions'
 import { Link } from 'react-router'
 import { Form, FormGroup, FormControl, Checkbox, Button, ControlLabel, Col, Modal } from 'react-bootstrap'
 
-
 export default class LoginContainer extends Component {
-  constructor(){
-    super()
-    this.state = {
-      userEmail: '',
-      userPassword: ''
-    }
-  }
-
-  handleChange = (e) => {
-    switch (e.target.name) {
-      case 'email':
-        this.setState({userEmail: e.target.value})
-        break
-        case 'password':
-          this.setState({userPassword: e.target.value})
-          break
-      default:
+    constructor() {
+        super()
+        this.state = {
+            userEmail: '',
+            userPassword: ''
+        }
     }
 
-  }
-  handleSubmit = (e) => {
-    e.preventDefault()
+    handleChange = (e) => {
+        switch (e.target.name) {
+            case 'email':
+                this.setState({userEmail: e.target.value})
+                break
+            case 'password':
+                this.setState({userPassword: e.target.value})
+                break
+            default:
+        }
 
-    var email = this.state.userEmail
-    var password = this.state.userPassword
-    var tkn= 'kiTwt1XsG7'
-
-    //Stockage en local
-    localStorage.setItem('auth:user', JSON.stringify(this.state.userEmail))
-    localStorage.setItem('auth:tkn', JSON.stringify(tkn))
-
-    //Envoie au redux store
-    this.props.actions.Login(email, password, tkn)
-
-
-
-  }
-render() {
-  return (
-
-      <Col sm={12} md={4} mdPush={4}>
-        {!this.props.isAuthenticated &&
-        <Form horizontal autoComplete="false"
-          onChange={this.handleChange}
-          onSubmit={this.handleSubmit}>
-
-          <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={2}>
-              Email
-            </Col>
-            <Col sm={12}>
-              <FormControl type="email" placeholder="Email" name='email' />
-            </Col>
-          </FormGroup>
-
-          <FormGroup controlId="formHorizontalPassword">
-            <Col componentClass={ControlLabel} sm={2}>
-              Password
-            </Col>
-            <Col sm={12}>
-              <FormControl type="password" placeholder="Password" name ='password' autoComplete="new-password"/>
-            </Col>
-          </FormGroup>
-
-          <FormGroup>
-            <Col smOffset={3} sm={10}>
-              <Checkbox>Remember me</Checkbox>
-            </Col>
-          </FormGroup>
-
-          <FormGroup>
-            <Col smOffset={3} sm={10}>
-              <Button type="submit">
-                Sign in
-              </Button>
-            </Col>
-          </FormGroup>
-
-        </Form>
     }
-    {this.props.isAuthenticated &&
-      <div
-        style={{textAlign: 'center'}}>
-      <h2>Connecté !</h2>
-      <Link to='/home'>Retour à l'accueil.</Link>
-      </div>
+    handleSubmit = (e) => { //Attention aucune validation !!!
+        e.preventDefault()
+
+        var email = this.state.userEmail
+        var password = this.state.userPassword
+        var tkn = 'kiTwt1XsG7'
+
+        //Validation
+        var data = {
+          email: email,
+          password: password,
+          token: tkn,
+        },
+        xhr = new XMLHttpRequest()
+        xhr.open('POST', 'dist/api/SignIn/SignIn.php', true)
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            console.log(JSON.parse(xhr.responseText))
+          }
+          else if (xhr.status !== 200) {
+            alert('Request failed.  Returned status of ' + xhr.status)
+          }
+        }
+        xhr.send(JSON.stringify(data))
+
+        //Stockage en local
+        localStorage.setItem('auth:user', JSON.stringify(this.state.userEmail))
+        localStorage.setItem('auth:tkn', JSON.stringify(tkn))
+
+        //Envoie au redux store
+        this.props.actions.Login(email, password, tkn)
+
     }
-        </Col>
-
-
-  )
-}
+    render() {
+      console.log(process.env.NODE_ENV);
+        return (
+            <Col sm={12} md={4} mdPush={4}>
+                {!this.props.isAuthenticated &&
+                    <Form horizontal autoComplete="false" onChange={this.handleChange} onSubmit={this.handleSubmit}>
+                      <FormGroup controlId="formHorizontalEmail">
+                          <Col componentClass={ControlLabel} sm={2}>
+                              Email
+                          </Col>
+                          <Col sm={12}>
+                            <FormControl type="email" placeholder="Email" name='email'/>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup controlId="formHorizontalPassword">
+                          <Col componentClass={ControlLabel} sm={2}>
+                          Password
+                          </Col>
+                          <Col sm={12}>
+                            <FormControl type="password" placeholder="Password" name='password' autoComplete="new-password"/>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup>
+                          <Col smOffset={3} sm={10}>
+                            <Checkbox>Remember me</Checkbox>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup>
+                          <Col smOffset={3} sm={10}>
+                              <Button type="submit">
+                                  Sign in
+                              </Button>
+                          </Col>
+                        </FormGroup>
+                    </Form>
+                }
+                {this.props.isAuthenticated && <div style={{ textAlign: 'center' }}>
+                    <h2>Bienvenue</h2>
+                    <p>{this.props.user}</p>
+                    <Link to='/home'>Retour à l'accueil.</Link>
+                </div>
+            } </Col>
+        )
+    }
 }
 
 const mapStateToProps = (state) => ({
@@ -116,4 +121,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginContainer);
+)(LoginContainer)

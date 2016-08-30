@@ -6,6 +6,7 @@ import * as LoginActions from '../actions/LoginActions'
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap'
 import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 
+import NavBar from '../components/Nav/NavBar.jsx'
 /**
  * It is common practice to have a 'Root' container/component require our main App (this one).
  * Again, this is because it serves to wrap the rest of our application with the Provider
@@ -16,9 +17,10 @@ import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-boo
      super(props)
      this.state = { isAuthenticated: localStorage ? true : false}
    }
+
    componentDidMount() {
-     var wasAuth = localStorage ? true : false
-     if (wasAuth) {
+     var wasAuth = localStorage.getItem('auth:user') ? true : false
+     if (localStorage.getItem('auth:user') ? true : false) {
        var email = JSON.parse(localStorage.getItem('auth:user')),
            password = '',
            tkn = JSON.parse(localStorage.getItem('auth:tkn'))
@@ -26,6 +28,7 @@ import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-boo
      }
      this.setState({isAuthenticated: wasAuth})
    }
+
    componentWillReceiveProps(nextProps) {
      this.setState({isAuthenticated: nextProps.isAuthenticated})
    }
@@ -34,55 +37,17 @@ import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-boo
      this.props.actions.Logout()
      localStorage.clear()
    }
+
    render() {
      return (
-       <div className="main-app-container">
-         <div className="main-app-nav">
-           <Navbar>
-             <Nav>
-             <LinkContainer to={'/Home'}>
-               <NavItem href="/home">Home</NavItem>
-             </LinkContainer>
-             <LinkContainer to={'/Counter'}>
-               <NavItem href='/counter' className='menuItem'>Counter</NavItem>
-             </LinkContainer>
-             <NavItem disabled>ToDo List</NavItem>
-             </Nav>
-             {!this.props.isAuthenticated &&
-               <Nav pullRight>
-                 <LinkContainer to={'/Login'}>
-                 <NavItem href="/login">
-                   Login
-                 </NavItem>
-                 </LinkContainer>
-               </Nav>
-             }
-             {this.props.isAuthenticated &&
-               <Nav pullRight>
-                 <NavDropdown eventKey="4" title={this.props.user} id="nav-dropdown">
-                   <LinkContainer to={'/Login'}>
-                     <MenuItem>Login Page</MenuItem>
-                   </LinkContainer>
-                   <MenuItem eventKey="4.2">Another action</MenuItem>
-                   <MenuItem eventKey="4.3">Something else here</MenuItem>
-                   <MenuItem divider />
-                   <MenuItem eventKey="4.4">
-                     <Navbar.Link href='#' onClick={() => {this.handleLogout()}}>
-                       LogOut
-                     </Navbar.Link>
-                   </MenuItem>
-                 </NavDropdown>
-               </Nav>
-             }
+       <div>
+         <NavBar />
+           <Grid>
+           <Row className='main-app-content'>
 
-           </Navbar>
-         </div>
-         <Grid>
-         <Row className='main-app-content'>
-
-           {this.props.children}
-         </Row>
-       </Grid>
+             {this.props.children}
+           </Row>
+         </Grid>
        </div>
      )
    }
