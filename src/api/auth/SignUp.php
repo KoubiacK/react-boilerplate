@@ -2,27 +2,24 @@
 //CROSSDOMAINS HEADERS
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+
+//Appel CryptoLib
+require_once('../lib/CryptoLib.php');
+
 //Récupération des données
 $data = json_decode(file_get_contents("php://input"));
 
+use IcyApril\CryptoLib;
+
+echo 'token' .PHP_EOL. $token2 .PHP_EOL;
+echo 'salt' .PHP_EOL. $salt .PHP_EOL;
+echo 'hash' .PHP_EOL. $hash .PHP_EOL;
 //Traitement
 $email = $data->{"email"};
 $password = $data->{"password"};
-$token = bin2hex(openssl_random_pseudo_bytes(16));
-// if ($email == 'zod_2007@hotmail.fr') {
-//   $token = bin2hex(openssl_random_pseudo_bytes(16));
-//   $response = array("email"=>$email,
-//                     "password"=>$password,
-//                     "token"=>$token);
-//
-//
-//   echo json_encode($response);
-// } else {
-//   $response = array("email"=>null,
-//                     "password"=>null,
-//                     "token"=>null);
-//   echo json_encode($response);
-// }
+$token = CryptoLib::randomString(16);
 
 try {
   $bdd = new PDO('mysql:host=localhost;dbname=react', 'root', 'Fe6F8pt3');

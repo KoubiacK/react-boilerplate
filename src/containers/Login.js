@@ -13,7 +13,9 @@ export default class LoginContainer extends Component {
         super()
         this.state = {
             userEmail: '',
-            userPassword: ''
+            userPassword: '',
+            Valid_email: '',
+            Valid_password: ''
         }
     }
 
@@ -32,8 +34,12 @@ export default class LoginContainer extends Component {
     handleSubmit = (e) => { //Attention aucune validation !!!
         e.preventDefault()
 
+        //Reset Validation errors
+        this.setState({Valid_email: ''})
+        this.setState({Valid_password: ''})
+
         var data = { email: this.state.userEmail, password: this.state.userPassword },
-            that = this.props
+            that = this
 
         auth.login(data, that) //<= /api/auth.js
     }
@@ -45,7 +51,7 @@ export default class LoginContainer extends Component {
                   <h2>Se connecter</h2>
                   <h3 style={{fontWeight: 100}}>Pas encore de compte ? <br/> <LinkContainer to={'/signup'}><a href='#'>En créer un</a></LinkContainer></h3>
                     <Form horizontal autoComplete="false" onChange={this.handleChange} onSubmit={this.handleSubmit}>
-                      <FormGroup controlId="formHorizontalEmail">
+                      <FormGroup controlId="formHorizontalEmail" validationState={this.state.Valid_email}>
                           <Col componentClass={ControlLabel} sm={2}>
                               Email
                           </Col>
@@ -53,7 +59,7 @@ export default class LoginContainer extends Component {
                             <FormControl type="email" placeholder="Email" name='email'/>
                           </Col>
                         </FormGroup>
-                        <FormGroup controlId="formHorizontalPassword">
+                        <FormGroup controlId="formHorizontalPassword" validationState={this.state.Valid_password}>
                           <Col componentClass={ControlLabel} sm={2}>
                           Password
                           </Col>

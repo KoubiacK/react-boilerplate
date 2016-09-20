@@ -1,5 +1,6 @@
 //XHR CROSSDOMAINS
 module.exports = {
+
   login(data, that) {
     function createCORSRequest(method, url) {
       var xhr = new XMLHttpRequest();
@@ -14,7 +15,7 @@ module.exports = {
       return xhr;
     }
 
-    var xhr = createCORSRequest('POST', 'http://localhost/SignIn.php')
+    var xhr = createCORSRequest('POST', 'http://localhost/lab/koub-react/dist/api/auth/SignIn.php')
 
     if (!xhr) {
       throw new Error('CORS not supported');
@@ -22,17 +23,26 @@ module.exports = {
     xhr.onload = function() {
       if (xhr.status === 200) {
         const res = JSON.parse(xhr.responseText)
-        console.log('xhrResponse :', res.token)
-
-        if (res.token) {
+        console.log('xhrResponse :', res)
+        if (res.error.status === false) {
+          alert('Tout est ok')
           //Envoie au redux store
-          that.actions.Login(data.email, data.password)
+          that.props.actions.Login(data.email, data.password)
 
           //Stockage en local
           localStorage.setItem('auth:tkn', res.token)
 
         } else {
-          alert('Email ou mot de passe erroné!')
+          switch (res.error.message) {
+            case 'WRONG_PASSWORD':
+              that.setState({'Valid_password': 'error'})
+              break;
+            case 'NO_USER':
+              that.setState({'Valid_email': 'error'})
+              break;
+            default:
+
+          }
         }
 
       }
@@ -60,7 +70,7 @@ module.exports = {
       return xhr;
     }
 
-    var xhr = createCORSRequest('POST', 'http://localhost/SignUp.php')
+    var xhr = createCORSRequest('POST', 'http://localhost/lab/koub-react/dist/api/auth/SignUp.php')
 
     if (!xhr) {
       throw new Error('CORS not supported');
