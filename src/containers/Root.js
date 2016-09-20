@@ -7,12 +7,12 @@ import Home from './Home'
 import Counter from './Counter'
 import Login from './Login'
 import LandingPage from './LandingPage'
-
+import SignUp from './SignUp'
 
 //Definition browserHistory selon NODE_ENV
 const history = process.env.NODE_ENV === 'production' ?
 useBasename(createHistory)({
-  basename: '/koub-react/'}) :
+  basename: '/'}) :
   browserHistory
 
 /**
@@ -35,6 +35,7 @@ export default class Root extends Component {
             <Route path="landingpage" component={LandingPage}/>
             <Route path="counter" component={Counter}/>
             <Route path="login" component={Login}/>
+            <Route path="signup" component={SignUp}/>
           </Route>
         </Router>
       </Provider>

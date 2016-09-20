@@ -1,14 +1,13 @@
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 
-export function Login(email, password, tkn) {
+export function Login(email, password) {
   return dispatch => setTimeout(
     () => dispatch(
       {
       type: LOGIN,
       email,
-      password,
-      tkn
+      password
     }), 0)
 }
 export function Logout() {

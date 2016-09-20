@@ -15,16 +15,16 @@ import NavBar from '../components/Nav/NavBar.jsx'
  export default class App extends Component {
    constructor(props) {
      super(props)
-     this.state = { isAuthenticated: localStorage ? true : false}
+     this.state = { isAuthenticated: 'josé'}
    }
 
    componentDidMount() {
-     var wasAuth = localStorage.getItem('auth:user') ? true : false
-     if (localStorage.getItem('auth:user') ? true : false) {
-       var email = JSON.parse(localStorage.getItem('auth:user')),
-           password = '',
-           tkn = JSON.parse(localStorage.getItem('auth:tkn'))
-       this.props.actions.Login(email, password, tkn)
+     var wasAuth = localStorage.getItem('auth:tkn') ? true : false
+     if (wasAuth) {
+       alert('Dejà loggé')
+       var email = 'zod_2007@hotmail.fr',
+           password = ''
+       this.props.actions.Login(email, password)
      }
      this.setState({isAuthenticated: wasAuth})
    }

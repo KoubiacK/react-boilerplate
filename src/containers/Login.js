@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux'
 import * as LoginActions from '../actions/LoginActions'
 import { Link } from 'react-router'
 import { Form, FormGroup, FormControl, Checkbox, Button, ControlLabel, Col, Modal } from 'react-bootstrap'
+import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap'
+import * as auth from '../api/auth/auth'
 
 export default class LoginContainer extends Component {
     constructor() {
@@ -30,42 +32,18 @@ export default class LoginContainer extends Component {
     handleSubmit = (e) => { //Attention aucune validation !!!
         e.preventDefault()
 
-        var email = this.state.userEmail
-        var password = this.state.userPassword
-        var tkn = 'kiTwt1XsG7'
+        var data = { email: this.state.userEmail, password: this.state.userPassword },
+            that = this.props
 
-        //Validation
-        var data = {
-          email: email,
-          password: password,
-          token: tkn,
-        },
-        xhr = new XMLHttpRequest()
-        xhr.open('POST', 'dist/api/SignIn/SignIn.php', true)
-        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-        xhr.onload = function() {
-          if (xhr.status === 200) {
-            console.log(JSON.parse(xhr.responseText))
-          }
-          else if (xhr.status !== 200) {
-            alert('Request failed.  Returned status of ' + xhr.status)
-          }
-        }
-        xhr.send(JSON.stringify(data))
-
-        //Stockage en local
-        localStorage.setItem('auth:user', JSON.stringify(this.state.userEmail))
-        localStorage.setItem('auth:tkn', JSON.stringify(tkn))
-
-        //Envoie au redux store
-        this.props.actions.Login(email, password, tkn)
-
+        auth.login(data, that) //<= /api/auth.js
     }
     render() {
-      console.log(process.env.NODE_ENV);
         return (
             <Col sm={12} md={4} mdPush={4}>
                 {!this.props.isAuthenticated &&
+                  <div>
+                  <h2>Se connecter</h2>
+                  <h3 style={{fontWeight: 100}}>Pas encore de compte ? <br/> <LinkContainer to={'/signup'}><a href='#'>En créer un</a></LinkContainer></h3>
                     <Form horizontal autoComplete="false" onChange={this.handleChange} onSubmit={this.handleSubmit}>
                       <FormGroup controlId="formHorizontalEmail">
                           <Col componentClass={ControlLabel} sm={2}>
@@ -96,6 +74,7 @@ export default class LoginContainer extends Component {
                           </Col>
                         </FormGroup>
                     </Form>
+                    </div>
                 }
                 {this.props.isAuthenticated && <div style={{ textAlign: 'center' }}>
                     <h2>Bienvenue</h2>
