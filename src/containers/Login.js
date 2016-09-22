@@ -13,7 +13,9 @@ export default class LoginContainer extends Component {
         super()
         this.state = {
             userEmail: '',
-            userPassword: ''
+            userPassword: '',
+            Valid_email: '',
+            Valid_password: ''
         }
     }
 
@@ -48,9 +50,8 @@ export default class LoginContainer extends Component {
                   <div>
                   <h2>Se connecter</h2>
                   <h3 style={{fontWeight: 100}}>Pas encore de compte ? <br/> <LinkContainer to={'/signup'}><a href='#'>En créer un</a></LinkContainer></h3>
-                  <span>Test</span>
-                  <Form horizontal autoComplete="false" onChange={this.handleChange} onSubmit={this.handleSubmit}>
-                      <FormGroup controlId="formHorizontalEmail" >
+                    <Form horizontal autoComplete="false" onChange={this.handleChange} onSubmit={this.handleSubmit}>
+                      <FormGroup controlId="formHorizontalEmail" validationState={this.state.Valid_email}>
                           <Col componentClass={ControlLabel} sm={2}>
                               Email
                           </Col>
@@ -58,7 +59,7 @@ export default class LoginContainer extends Component {
                             <FormControl type="email" placeholder="Email" name='email'/>
                           </Col>
                         </FormGroup>
-                        <FormGroup controlId="formHorizontalPassword" >
+                        <FormGroup controlId="formHorizontalPassword" validationState={this.state.Valid_password}>
                           <Col componentClass={ControlLabel} sm={2}>
                           Password
                           </Col>
@@ -67,8 +68,13 @@ export default class LoginContainer extends Component {
                           </Col>
                         </FormGroup>
                         <FormGroup>
-                          <Col sm={12} md={12}>
-                              <Button style={{width: '100%'}}type="submit">
+                          <Col smOffset={3} sm={10}>
+                            <Checkbox>Remember me</Checkbox>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup>
+                          <Col smOffset={3} sm={10}>
+                              <Button type="submit">
                                   Sign in
                               </Button>
                           </Col>
@@ -81,8 +87,7 @@ export default class LoginContainer extends Component {
                     <p>{this.props.user}</p>
                     <Link to='/home'>Retour à l'accueil.</Link>
                 </div>
-            }
-          </Col>
+            } </Col>
         )
     }
 }
@@ -96,7 +101,7 @@ const mapStateToProps = (state) => ({
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(LoginActions, dispatch)
-  }
+  };
 }
 export default connect(
   mapStateToProps,
