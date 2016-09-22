@@ -24,8 +24,8 @@ module.exports = {
     }),
         new CopyWebpackPlugin([
           {
-            from: path.join(__dirname, 'src/api/SignIn/SignIn.php'),
-            to: 'api/SignIn/SignIn.php'
+            from: path.join(__dirname, 'src/api'),
+            to: 'api/'
           }
         ])
     ],
