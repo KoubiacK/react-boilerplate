@@ -1,4 +1,6 @@
 <?php
+require_once('../lib/CryptoLib.php');
+use IcyApril\CryptoLib;
 
   class db
   {
@@ -20,23 +22,88 @@
             }
         }
 
-    public function login($email, $password)
-    {
-      $sql = 'SELECT * FROM users WHERE Email = :Email';
-      $req = $this->connection->prepare($sql);
-      $req->bindParam(':Email', $email);
-      $req->execute();
-      $req->setFetchMode(PDO::FETCH_OBJ);
-      $res= $req->fetch();
+        public function checkUser($email)
+        {
+          $sql = 'SELECT ID FROM users WHERE Email = :Email';
+          $req = $this->connection->prepare($sql);
+          $req->bindParam(':Email', $email);
+          $req->execute();
+          $req->setFetchMode(PDO::FETCH_OBJ);
+          $res= $req->fetch();
 
-      $return = $res;
+          if (isset($res->ID))
+          {
+            $return = $res;
+          }
+          else
+          {
+            $return = (object)['error' => 'Unkown Mail'];
+          }
 
-      if (!password_verify($password, $res->Password)) {
-        $return = 'Wrong pass';
-      }
+          return $return;
+        }
 
-        return $return;
-    }
+        public function getUser($ID)
+        {
+          $sql = 'SELECT * FROM users WHERE ID = :ID';
+          $req = $this->connection->prepare($sql);
+          $req->bindParam(':ID', $ID);
+          $req->execute();
+          $req->setFetchMode(PDO::FETCH_OBJ);
+          $res= $req->fetch();
+
+          if (isset($res->ID))
+          {
+            $return = $res;
+          }
+          else
+          {
+            $return = (object)['error' => 'Unkown Mail'];
+          }
+
+          return $return;
+        }
+
+        public function login($ID, $password)
+        {
+          $sql = 'SELECT * FROM users WHERE ID = :ID';
+          $req = $this->connection->prepare($sql);
+          $req->bindParam(':ID', $ID);
+          $req->execute();
+          $req->setFetchMode(PDO::FETCH_OBJ);
+          $res= $req->fetch();
+
+          $return = $res;
+
+          if (!password_verify($password, $res->Password)) {
+            $return = (object)['error' => 'Incorrect password'];
+          }
+
+            return $return;
+        }
+
+        public function keep_logged($ID)
+        {
+          if (isset($ID)) {
+            //Cryptolib based Hash Generation
+            $token = CryptoLib::randomString(16);
+            $salt = CryptoLib::generateSalt();
+            $hash = CryptoLib::hash($token, $salt);
+
+            $sql = 'INSERT INTO users_online(userID, salt, hash) VALUES(:userID, :salt, :hash)';
+            $req = $this->connection->prepare($sql);
+            $req->bindParam(':userID', $ID);
+            $req->bindParam(':salt', $salt);
+            $req->bindParam(':hash', $hash);
+            $req->execute();
+
+            $return = (object)['hash' => $hash];
+
+          } else {
+            $return = (object)['error' => 'keep_logged: Pas d`ID'];
+          }
+          return $return;
+        }
 
   }
  ?>

@@ -13,9 +13,7 @@ export default class LoginContainer extends Component {
         super()
         this.state = {
             userEmail: '',
-            userPassword: '',
-            Valid_email: '',
-            Valid_password: ''
+            userPassword: ''
         }
     }
 
@@ -33,10 +31,6 @@ export default class LoginContainer extends Component {
     }
     handleSubmit = (e) => { //Attention aucune validation !!!
         e.preventDefault()
-
-        //Reset Validation errors
-        this.setState({Valid_email: ''})
-        this.setState({Valid_password: ''})
 
         var data = { email: this.state.userEmail, password: this.state.userPassword },
             that = this

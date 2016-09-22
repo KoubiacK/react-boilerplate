@@ -5,10 +5,25 @@ header("Content-Type: application/json");
 require_once('./db.class.php');
 
 $data = json_decode(file_get_contents("php://input"));
-$email = 'zod_2007@hotmail.fr'; //$data->{"email"}
-$password = 'zzz';               //$data->{"password"}
+$email = $data->{"email"}; //$data->{"email"}
+$password = $data->{"password"};               //$data->{"password"}
+$keep_logged = true;
 $db = new db;
-$user = $db->login($email, $password);
 
-var_dump(get_object_vars($user));
+$user = $db->checkUser($email);
+// var_dump(get_object_vars($user));
+if (isset($user->ID))  //Si l'utilisateur existe
+  {
+    $user = $db->login($user->ID, $password); //on tente de le logger
+    // var_dump(get_object_vars($user));
+
+    if (isset($user->ID)) //Si les infos sont correctes
+    {
+      $hash = $db->keep_logged($user->ID); //Création du hash
+      // var_dump(get_object_vars($hash));
+      $user = $db->getUser($user->ID);
+      echo json_encode($return = array('Email' => $user->Email,
+                                       'hash' => $hash->hash ));
+    }
+  }
  ?>
