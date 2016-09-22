@@ -9,7 +9,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
         //publicPath: 'http://vps311287.ovh.net/koub-react/' //prod OVH
-        publicPath: '/koub-react/' //dev
+        publicPath: 'http://local.node/' //dev
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -19,8 +19,8 @@ module.exports = {
     }),
         new CopyWebpackPlugin([
           {
-            from: path.join(__dirname, 'src/api/SignIn/SignIn.php'),
-            to: 'api/SignIn/SignIn.php'
+            from: path.join(__dirname, 'src/api'),
+            to: 'api/'
           }
         ])
     ],

@@ -25,7 +25,6 @@ module.exports = {
         const res = JSON.parse(xhr.responseText)
         console.log('xhrResponse :', res)
         if (res.error.status === false) {
-          alert('Tout est ok')
           //Envoie au redux store
           that.props.actions.Login(data.email, data.password)
 
