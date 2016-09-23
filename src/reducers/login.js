@@ -3,8 +3,7 @@ import { LOGIN, LOGOUT } from '../actions/LoginActions'
 const initialState = {
   isAuthenticated: false,
   user:{
-    email: '',
-    password: ''
+    email: ''
   }
 }
 export default function auth(state = initialState, action) {
@@ -13,8 +12,7 @@ export default function auth(state = initialState, action) {
       return Object.assign({}, state, {
         isAuthenticated: true,
         user:{
-          email: action.email,
-          password: action.password
+          email: action.email
         }
       })
       case LOGOUT:

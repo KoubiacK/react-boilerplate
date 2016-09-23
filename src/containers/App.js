@@ -5,28 +5,29 @@ import * as LoginActions from '../actions/LoginActions'
 //Bootstap imports
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap'
 import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-
+//Components import
 import NavBar from '../components/Nav/NavBar.jsx'
-/**
- * It is common practice to have a 'Root' container/component require our main App (this one).
- * Again, this is because it serves to wrap the rest of our application with the Provider
- * component to make the Redux store available to the rest of the app.
- */
+
+import * as auth from '../api/auth/auth'
+
+
  export default class App extends Component {
    constructor(props) {
      super(props)
-     this.state = { isAuthenticated: 'josé'}
+     this.state = { isAuthenticated: false}
    }
 
    componentDidMount() {
+     //Check if we have hash in localStorage
      var wasAuth = localStorage.getItem('auth:tkn') ? true : false
      if (wasAuth) {
-       alert('Dejà loggé')
-       var email = 'zod_2007@hotmail.fr',
-           password = ''
-       this.props.actions.Login(email, password)
+       var credentials = localStorage.getItem('auth:tkn').split('.', 2)
+       var data = { ID: credentials[0], hash: credentials[1] },
+           that = this
+           auth.relog(data, that)
+      this.setState({isAuthenticated: true})
      }
-     this.setState({isAuthenticated: wasAuth})
+
    }
 
    componentWillReceiveProps(nextProps) {
@@ -54,7 +55,6 @@ import NavBar from '../components/Nav/NavBar.jsx'
  }
  const mapStateToProps = (state) => ({
      isAuthenticated: state.login.isAuthenticated,
-     token: state.login.token,
      user: state.login.user.email
  })
  function mapDispatchToProps(dispatch) {

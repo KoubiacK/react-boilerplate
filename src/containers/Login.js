@@ -88,7 +88,6 @@ export default class LoginContainer extends Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.login.isAuthenticated,
-  token: state.login.token,
   user: state.login.user.email
 })
 

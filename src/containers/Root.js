@@ -15,9 +15,16 @@ useBasename(createHistory)({
   basename: '/'}) :
   browserHistory
 
-/**
- * Component is exported for conditional usage in Root.js
- */
+const routes = (
+  <Route path="/" component={App}>
+    <IndexRoute component={Home}/>
+    <Route path="home" component={Home}/>
+    <Route path="landingpage" component={LandingPage}/>
+    <Route path="counter" component={Counter}/>
+    <Route path="login" component={Login}/>
+    <Route path="signup" component={SignUp}/>
+  </Route>
+)
 export default class Root extends Component {
   render() {
     const { store } = this.props
@@ -29,14 +36,7 @@ export default class Root extends Component {
        */
       <Provider store={store}>
         <Router history={history}>
-          <Route path="/" component={App}>
-            <IndexRoute component={Home}/>
-            <Route path="home" component={Home}/>
-            <Route path="landingpage" component={LandingPage}/>
-            <Route path="counter" component={Counter}/>
-            <Route path="login" component={Login}/>
-            <Route path="signup" component={SignUp}/>
-          </Route>
+          { routes }
         </Router>
       </Provider>
     )

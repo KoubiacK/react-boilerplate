@@ -24,11 +24,11 @@ module.exports = {
       if (xhr.status === 200) {
 
         const res = JSON.parse(xhr.responseText)
-        console.log('xhrResponse :', res)
+        // console.log('xhrResponse :', res)
 
         if (typeof res.hash !== 'undefined') {
           //Envoie au redux store
-          that.props.actions.Login(data.email, data.password)
+          that.props.actions.Login(data.email)
           //Stockage en local
           localStorage.setItem('auth:tkn', res.hash)
         } else {
@@ -40,7 +40,7 @@ module.exports = {
       }
     }
 
-    console.log('xhrSent :', JSON.stringify(data))
+    // console.log('xhrSent :', JSON.stringify(data))
     xhr.send(JSON.stringify(data))
   },
 
@@ -53,13 +53,34 @@ module.exports = {
     xhr.onload = function() {
       if (xhr.status === 200) {
         const res = xhr.responseText
-        console.log('xhrResponse :', res)
+        // console.log('xhrResponse :', res)
       }
       else {
         alert('Woops, there was an error making the request.')
       }
     }
-    console.log('xhrSent :', JSON.stringify(data))
+    // console.log('xhrSent :', JSON.stringify(data))
+    xhr.send(JSON.stringify(data))
+  },
+
+  relog(data, that) {
+    var xhr = createCORSRequest('POST', 'http://localhost/lab/koub-react/dist/api/auth/Relog.php')
+
+    if (!xhr) {
+      throw new Error('CORS not supported');
+    }
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const res = xhr.responseText
+        // console.log('xhrResponse :', res)
+        var Email = JSON.parse(res).Email
+        that.props.actions.Login(Email)
+      }
+      else {
+        alert('Woops, there was an error making the request.')
+      }
+    }
+    // console.log('xhrSent :', JSON.stringify(data))
     xhr.send(JSON.stringify(data))
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Grid, Row, Navbar,Nav, NavItem, NavItemLink, NavDropdown, MenuItem } from 'react-bootstrap'
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap'
 export default class NavLogin extends Component {
   constructor(props){
@@ -30,11 +30,7 @@ export default class NavLogin extends Component {
               <MenuItem eventKey="4.2">Another action</MenuItem>
               <MenuItem eventKey="4.3">Something else here</MenuItem>
               <MenuItem divider />
-              <MenuItem eventKey="4.4">
-                <Navbar.Link href='#' onClick={() => {this.handleLogout()}}>
-                  LogOut
-                </Navbar.Link>
-              </MenuItem>
+              <MenuItem eventKey="4.4" href='#' onClick={() => {this.handleLogout()}}>LogOut</MenuItem>
             </NavDropdown>
           </Nav>
         }
