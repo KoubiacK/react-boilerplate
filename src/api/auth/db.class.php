@@ -135,5 +135,26 @@ use IcyApril\CryptoLib;
           return $res;
         }
 
+        public function Logout($userToLogout)
+        {
+          $sql = 'SELECT ID FROM users WHERE Email = :Email';
+          $req = $this->connection->prepare($sql);
+          $req->bindParam(':Email', $userToLogout);
+          $req->execute();
+          $req->setFetchMode(PDO::FETCH_OBJ);
+          $res= $req->fetch();
+
+          $return = $res;
+
+          echo $res->ID;
+          $UserID = $res->ID;
+          $sql = 'DELETE FROM users_online WHERE UserID = :UserID';
+          $req = $this->connection->prepare($sql);
+          $req->bindParam(':UserID', $UserID);
+          $req->execute();
+
+          return ;
+        }
+
   }
  ?>

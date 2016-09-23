@@ -20,12 +20,14 @@ import * as auth from '../api/auth/auth'
    componentDidMount() {
      //Check if we have hash in localStorage
      var wasAuth = localStorage.getItem('auth:tkn') ? true : false
+
      if (wasAuth) {
        var credentials = localStorage.getItem('auth:tkn').split('.', 2)
-       var data = { ID: credentials[0], hash: credentials[1] },
-           that = this
-           auth.relog(data, that)
-      this.setState({isAuthenticated: true})
+       var data = { ID: credentials[0], hash: credentials[1] }
+       var that = this
+
+       auth.relog(data, that)
+       this.setState({isAuthenticated: true})
      }
 
    }

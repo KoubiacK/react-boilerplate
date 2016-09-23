@@ -82,5 +82,24 @@ module.exports = {
     }
     // console.log('xhrSent :', JSON.stringify(data))
     xhr.send(JSON.stringify(data))
+  },
+
+  LogOut(data, that) {
+    var xhr = createCORSRequest('POST', 'http://localhost/lab/koub-react/dist/api/auth/LogOut.php')
+
+    if (!xhr) {
+      throw new Error('CORS not supported');
+    }
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+
+      }
+      else {
+        alert('Woops, there was an error making the request.')
+      }
+    }
+    // console.log('xhrSent :', JSON.stringify(data))
+    xhr.send(JSON.stringify(data))
   }
+
 }
