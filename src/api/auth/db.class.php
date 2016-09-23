@@ -90,6 +90,7 @@ use IcyApril\CryptoLib;
             $salt = CryptoLib::generateSalt();
             $hash = CryptoLib::hash($token, $salt);
 
+            //DB INSERTION
             $sql = 'INSERT INTO users_online(userID, salt, hash) VALUES(:userID, :salt, :hash)';
             $req = $this->connection->prepare($sql);
             $req->bindParam(':userID', $ID);
@@ -102,6 +103,22 @@ use IcyApril\CryptoLib;
           } else {
             $return = (object)['error' => 'keep_logged: Pas d`ID'];
           }
+          return $return;
+        }
+
+        public function signup($email, $password)
+        {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+
+            $sql = 'INSERT INTO users(Email, Password) VALUES(:Email, :Password)';
+            $req = $this->connection->prepare($sql);
+            $req->bindParam(':Email', $email);
+            $req->bindParam(':Password', $password);
+            $req->execute();
+
+            $return = (object)['status' => 'ok'];
+
+
           return $return;
         }
 
