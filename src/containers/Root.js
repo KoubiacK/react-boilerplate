@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRedirect, browserHistory, hashHistory } from 'react-router'
 import { createHistory, useBasename } from 'history'
 import App from './App'
 import Home from './Home'
@@ -11,13 +11,12 @@ import SignUp from './SignUp'
 
 //Definition browserHistory selon NODE_ENV
 const history = process.env.NODE_ENV === 'production' ?
-useBasename(createHistory)({
-  basename: '/'}) :
+  hashHistory :
   browserHistory
 
 const routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={Home}/>
+    <IndexRedirect to='/home' />
     <Route path="home" component={Home}/>
     <Route path="landingpage" component={LandingPage}/>
     <Route path="counter" component={Counter}/>

@@ -25,7 +25,7 @@ module.exports = {
         new CopyWebpackPlugin([
           {
             from: path.join(__dirname, 'src/api'),
-            to: 'api/'
+            to: '/dist/api/'
           }
         ])
     ],
@@ -33,7 +33,8 @@ module.exports = {
         loaders: [
             {
               test: /\.js$/,
-              loaders: ['react-hot', 'babel'], exclude: /node_modules/,
+              loaders: ['react-hot', 'babel'],
+              exclude: /node_modules/,
               include: path.join(__dirname, 'src')},
             {
               test: /\.jsx?$/,
@@ -44,10 +45,12 @@ module.exports = {
             {
               test: /\.css$/,
               loader: 'style-loader!css-loader',
-              exclude: /node_modules/, include: path.join(__dirname, 'src')
+              exclude: /node_modules/,
+              include: path.join(__dirname, 'src')
             },
             {
               test: /\.scss$/,
+              exclude: /node_modules/,
               loader: 'style!css!sass'
             },
             // the url-loader uses DataUrls.

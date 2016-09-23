@@ -9,7 +9,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
         //publicPath: 'http://vps311287.ovh.net/koub-react/' //prod OVH
-        publicPath: '/koub-react/' //dev
+        publicPath: 'http://localhost/lab/koub-react/' //dev
     },
     plugins: [
         new webpack.DefinePlugin({

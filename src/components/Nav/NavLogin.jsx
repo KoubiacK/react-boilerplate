@@ -21,7 +21,7 @@ export default class NavLogin extends Component {
         {!this.props.isAuthenticated &&
           <Nav pullRight>
             <LinkContainer to={'/Login'}>
-            <NavItem href="/login">
+            <NavItem href="/login" eventKey="5">
               Login
             </NavItem>
             </LinkContainer>
@@ -29,14 +29,16 @@ export default class NavLogin extends Component {
         }
         {this.props.isAuthenticated &&
           <Nav pullRight>
-            <NavDropdown eventKey="4" title={this.props.user} id="nav-dropdown">
+            <NavDropdown eventKey="6" title={this.props.user} id="nav-dropdown">
               <LinkContainer to={'/Login'}>
                 <MenuItem>Login Page</MenuItem>
               </LinkContainer>
-              <MenuItem eventKey="4.2">Profil</MenuItem>
-              <MenuItem eventKey="4.3">Paramètres</MenuItem>
+              <LinkContainer to={'/Home'}>
+                <MenuItem eventKey="6.2">Profil</MenuItem>
+              </LinkContainer>
+              <MenuItem eventKey="6.3">Paramètres</MenuItem>
               <MenuItem divider />
-              <MenuItem eventKey="4.4" href='#' onClick={() => {this.handleLogout()}}>LogOut</MenuItem>
+              <MenuItem eventKey="6.4" href='#' onClick={() => {this.handleLogout()}}>LogOut</MenuItem>
             </NavDropdown>
           </Nav>
         }

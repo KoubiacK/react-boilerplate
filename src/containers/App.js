@@ -66,5 +66,7 @@ import * as auth from '../api/auth/auth'
  }
  export default connect(
    mapStateToProps,
-   mapDispatchToProps
+   mapDispatchToProps,
+   null,
+   { pure: false }
  )(App);

@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import rootReducer from '../reducers'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
-
+ 
 /**
  * Entirely optional, this tiny library adds some functionality to
  * your DevTools, by logging actions/state to your console. Used in
