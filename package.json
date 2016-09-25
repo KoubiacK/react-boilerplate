@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Koubi4cK's template for React",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --config=webpack.config.dev.js --colors --progress --history-api-fallback && npm run _open:chrome 'http://localhost:8080'",
+    "start": "./node_modules/.bin/webpack-dev-server --config=webpack.config.dev.js --colors --progress --history-api-fallback",
     "lint": "eslint src",
-    "dev": "./node_modules/.bin/webpack-dev-server --config=webpack.config.dev.js --colors --progress --history-api-fallback",
+    "dev": "./node_modules/.bin/webpack-dev-server --config=webpack.config.dev.js --colors --progress --compress --history-api-fallback",
     "prod": "./node_modules/.bin/webpack --config=webpack.config.prod.js --colors --progress --watch"
   },
   "repository": {
