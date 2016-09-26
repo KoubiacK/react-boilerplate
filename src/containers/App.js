@@ -1,39 +1,36 @@
-import React, { Component, PropTypes } from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as LoginActions from '../actions/LoginActions'
 //Bootstap imports
-import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap'
-import { Grid, Row, Navbar,Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Grid, Row } from 'react-bootstrap'
 //Components import
 import NavBar from '../components/Nav/NavBar.jsx'
-
+//auth
 import * as auth from '../api/auth/auth'
 
 
- export default class App extends Component {
+export default class App extends Component {
    constructor(props) {
      super(props)
-     this.state = { isAuthenticated: false}
+     this.state = { isAuthenticated: false }
    }
 
    componentDidMount() {
      //Check if we have hash in localStorage
-     var wasAuth = localStorage.getItem('auth:tkn') ? true : false
+     let wasAuth = localStorage.getItem('auth:tkn') ? true : false
 
      if (wasAuth) {
-       var credentials = localStorage.getItem('auth:tkn').split('.', 2)
-       var data = { ID: credentials[0], hash: credentials[1] }
-       var that = this
+       let credentials = localStorage.getItem('auth:tkn').split('.', 2)
+       let data = { ID: credentials[0], hash: credentials[1] }
+       let that = this
 
        auth.relog(data, that)
-       this.setState({isAuthenticated: true})
      }
-
    }
 
    componentWillReceiveProps(nextProps) {
-     this.setState({isAuthenticated: nextProps.isAuthenticated})
+     this.setState({ isAuthenticated: nextProps.isAuthenticated })
    }
 
    handleLogout() {
@@ -55,18 +52,18 @@ import * as auth from '../api/auth/auth'
      )
    }
  }
- const mapStateToProps = (state) => ({
-     isAuthenticated: state.login.isAuthenticated,
-     user: state.login.user.email
- })
- function mapDispatchToProps(dispatch) {
-   return {
-     actions: bindActionCreators(LoginActions, dispatch)
-   };
- }
- export default connect(
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.login.isAuthenticated,
+  user: state.login.user.email
+})
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(LoginActions, dispatch)
+  }
+}
+export default connect(
    mapStateToProps,
    mapDispatchToProps,
    null,
    { pure: false }
- )(App);
+ )(App)

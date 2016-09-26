@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRedirect,hashHistory, useRouterHistory } from 'react-router'
+import { Router, Route, IndexRedirect, hashHistory, useRouterHistory } from 'react-router'
 import { createHistory } from 'history'
 import App from './App'
 import Home from './Home'
@@ -17,13 +17,13 @@ const history = process.env.NODE_ENV === 'production' ?
   })
 
 const routes = (
-  <Route path="/" component={App}>
+  <Route path='/' component={App}>
     <IndexRedirect to='/home' />
-    <Route path="home" component={Home}/>
-    <Route path="landingpage" component={LandingPage}/>
-    <Route path="counter" component={Counter}/>
-    <Route path="login" component={Login}/>
-    <Route path="signup" component={SignUp}/>
+    <Route path='home' component={Home}/>
+    <Route path='landingpage' component={LandingPage}/>
+    <Route path='counter' component={Counter}/>
+    <Route path='login' component={Login}/>
+    <Route path='signup' component={SignUp}/>
   </Route>
 )
 export default class Root extends Component {
@@ -31,11 +31,6 @@ export default class Root extends Component {
     const { store } = this.props
     console.log(process.env.NODE_ENV)
     return (
-      /**
-       * Provider is a component provided to us by the 'react-redux' bindings that
-       * wraps our app - thus making the Redux store/state available to our 'connect()'
-       * calls in component hierarchy below.
-       */
 
       <Provider store={store}>
         <Router history={history}>
