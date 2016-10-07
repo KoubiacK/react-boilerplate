@@ -3,6 +3,10 @@ import React, { Component } from 'react'
 import { Row, Col, PageHeader, Image } from 'react-bootstrap'
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props)
+  }
+
 render() {
   return (
     <Col xs={12} md={12}>

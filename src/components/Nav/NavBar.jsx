@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { Navbar } from 'react-bootstrap'
-
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import * as LoginActions from '../../actions/LoginActions'
@@ -17,12 +16,12 @@ export default class NavBar extends Component {
         <NavMenu/>
         <NavLogin isAuthenticated={this.props.isAuthenticated} user={this.props.user} actions={this.props.actions}/>
       </Navbar>
-      )
-    }
+    )
+  }
 }
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.login.isAuthenticated,
-    user: state.login.user.email
+  isAuthenticated: state.login.isAuthenticated,
+  user: state.login.user.email
 })
 function mapDispatchToProps(dispatch) {
   return {
@@ -33,5 +32,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   null,
-  {pure: false}
-)(NavBar);
+  { pure: false }
+)(NavBar)

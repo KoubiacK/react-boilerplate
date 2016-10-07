@@ -156,5 +156,16 @@ use IcyApril\CryptoLib;
           return ;
         }
 
+        public function getProfil($hash)
+        {
+          $sql = 'SELECT * FROM users_online WHERE hash = :hash';
+          $req = $this->connection->prepare($sql);
+          $req->bindParam(':hash', $hash);
+          $req->execute();
+          $req->setFetchMode(PDO::FETCH_OBJ);
+          $res= $req->fetch();
+          return $res;
+        }
+
   }
  ?>
