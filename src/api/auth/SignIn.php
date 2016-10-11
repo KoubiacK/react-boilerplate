@@ -26,5 +26,10 @@ if (isset($user->ID))  //Si l'utilisateur existe
       $user = $db->getUser($user->ID);
       echo json_encode($return = array('hash' => $hash->hash ));
     }
+    else {
+      echo json_encode($return = array('Error' => 'Wrong Pass' ));
+    }
+  } else {
+    echo json_encode($return = array('Error' => 'Unknow User' ));
   }
  ?>

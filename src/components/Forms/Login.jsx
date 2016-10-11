@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, FormGroup, FormControl, Checkbox, Button, ControlLabel, Col } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Checkbox, Button, ControlLabel, Col, Alert, Fade } from 'react-bootstrap'
 import * as auth from '../../api/auth/auth'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -9,7 +9,8 @@ export default class LoginForm extends Component {
     super()
     this.state = {
       userEmail: '',
-      userPassword: ''
+      userPassword: '',
+      Error: { status: false, message: '' }
     }
   }
 
@@ -35,8 +36,12 @@ export default class LoginForm extends Component {
   }
 
   render() {
+    let Error = this.state.Error.status === true
+    ? <Fade in='true'><Alert bsStyle='danger' style={{ display: 'block' }}>{ this.state.Error.message}</Alert></Fade>
+    : null
     return(
-
+      <div>
+          { Error }
           <Form horizontal autoComplete='false' onChange={this.handleChange} onSubmit={this.handleSubmit}>
             <FormGroup controlId='formHorizontalEmail'>
               <Col componentClass={ControlLabel} sm={2}>
@@ -67,7 +72,7 @@ export default class LoginForm extends Component {
               </Col>
             </FormGroup>
           </Form>
-
+      </div>
     )}
 }
 function mapDispatchToProps(dispatch) {

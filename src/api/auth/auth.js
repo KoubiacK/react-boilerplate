@@ -22,9 +22,8 @@ module.exports = {
     }
     xhr.onload = function() {
       if (xhr.status === 200) {
-
         const res = JSON.parse(xhr.responseText)
-        // console.log('xhrResponse :', res)
+        console.log('xhrResponse :', res)
 
         if (typeof res.hash !== 'undefined') {
           //Envoie au redux store
@@ -32,7 +31,7 @@ module.exports = {
           //Stockage en local
           localStorage.setItem('auth:tkn', res.hash)
         } else {
-          alert('Error while login you in')
+          that.setState({ Error: { status: true, message: res.Error } })
         }
       }
       else { alert('Woops, there was an error making the request.') }
@@ -108,10 +107,15 @@ module.exports = {
       if (xhr.status === 200) {
         const res = xhr.responseText
         console.log('xhrResponse :', res)
-        that.setState({ Email: JSON.parse(res).Email })
+        that.state.InputValues = { firstName: JSON.parse(res).firstName,
+                                  lastName: JSON.parse(res).lastName,
+                                  email: JSON.parse(res).Email,
+                                  password1: 'password',
+                                  password2: 'password' }
+        that.state.User.email = JSON.parse(res).Email
       }
       else {
-        alert('Woops, there was an error making the request.')
+        that.setState({ error: { status: true, message: 'Can\'t get User Infos' } })
       }
     }
     xhr.send(hash)

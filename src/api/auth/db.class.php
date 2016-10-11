@@ -77,7 +77,7 @@ use IcyApril\CryptoLib;
 
           if (!password_verify($password, $res->Password)) {
             $return = (object)['error' => 'Incorrect password'];
-          }
+          } 
 
             return $return;
         }
