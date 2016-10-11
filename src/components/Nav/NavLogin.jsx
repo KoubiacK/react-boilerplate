@@ -15,6 +15,7 @@ export default class NavLogin extends Component {
     localStorage.clear()
     auth.LogOut(data, that)
   }
+
   render() {
     return(
       <div>
@@ -38,7 +39,7 @@ export default class NavLogin extends Component {
               </LinkContainer>
               <MenuItem eventKey='6.3'>Paramètres</MenuItem>
               <MenuItem divider />
-              <MenuItem eventKey='6.4' href='#' onClick={ () => {
+              <MenuItem eventKey='6.4' href='/' onClick={ () => {
                 this.handleLogout()
               } }>LogOut</MenuItem>
             </NavDropdown>

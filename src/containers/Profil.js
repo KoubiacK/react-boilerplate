@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 //Bootstap imports
 import { Col, PageHeader, Form, FormGroup, FormControl, Button, Image, ControlLabel, Alert } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 //auth
 import * as auth from '../api/auth/auth'
 import CryptoJS from 'crypto-js'
@@ -68,18 +69,18 @@ export default class Profil extends Component {
     }
   }
   render() {
+    console.log('render', this.state.InputValues)
     let Error = this.state.Error.status === true
     ? <Alert bsStyle='danger' style={{ display: 'block' }}>{ this.state.Error.message}</Alert>
     : null
 
     this.state.User.avatar = getGravatar(this.state.User.email)
-    console.log('render !')
     return(
       <Col xs={12} md={12}>
         <PageHeader>Profil</PageHeader>
         <Col xs={12} md={4} style={{ textAlign: 'center' }}>
         <Image src={this.state.User.avatar.toString()} circle responsive style={{ margin: '0 auto' }}/>
-        <span>Changer d'avatar</span>
+        <LinkContainer to='/'><a href='#'>Changer d'avatar</a></LinkContainer>
         </Col>
         <Col xs={12} md={8}>
           { Error }
