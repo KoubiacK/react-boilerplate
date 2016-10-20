@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as LoginActions from '../actions/LoginActions'
 
-export default class LoginContainer extends Component {
+class LoginContainer extends Component {
     render() {
       return (
         <div>

@@ -20,6 +20,10 @@ module.exports = {
       {
         from: path.join(__dirname, 'src/api/'),
         to: 'api/'
+      },
+      {
+        from: path.join(__dirname, 'src/assets'),
+        to: 'assets/'
       }
     ])
   ],

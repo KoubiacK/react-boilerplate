@@ -10,6 +10,8 @@ import LandingPage from './LandingPage'
 import SignUp from './SignUp'
 import Profil from './Profil'
 import Test from '../components/test.jsx'
+import MyDates from './MyDates.jsx'
+
 //Definition browserHistory selon NODE_ENV
 const history = process.env.NODE_ENV === 'production' ?
   hashHistory :
@@ -27,6 +29,7 @@ const routes = (
     <Route path='login' component={Login}/>
     <Route path='signup' component={SignUp}/>
     <Route path='profil' component={Profil}/>
+    <Route path='mydates' component={MyDates}/>
   </Route>
 )
 export default class Root extends Component {

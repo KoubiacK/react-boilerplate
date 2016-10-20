@@ -24,7 +24,7 @@ if (isset($user->ID))  //Si l'utilisateur existe
       $hash = $db->keep_logged($user->ID); //Création du hash
       // var_dump(get_object_vars($hash));
       $user = $db->getUser($user->ID);
-      echo json_encode($return = array('hash' => $hash->hash ));
+      echo json_encode($return = array('hash' => $hash->hash, 'firstName' => $user->firstName, 'lastName' => $user->lastName  ));
     }
     else {
       echo json_encode($return = array('Error' => 'Wrong Pass' ));

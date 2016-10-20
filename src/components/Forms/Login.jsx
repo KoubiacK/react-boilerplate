@@ -4,7 +4,8 @@ import * as auth from '../../api/auth/auth'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as LoginActions from '../../actions/LoginActions'
-export default class LoginForm extends Component {
+
+class LoginForm extends Component {
   constructor() {
     super()
     this.state = {
@@ -37,7 +38,7 @@ export default class LoginForm extends Component {
 
   render() {
     let Error = this.state.Error.status === true
-    ? <Fade in='true'><Alert bsStyle='danger' style={{ display: 'block' }}>{ this.state.Error.message}</Alert></Fade>
+    ? <Fade in={ this.state.Error.status }><Alert bsStyle='danger' style={{ display: 'block' }}>{ this.state.Error.message}</Alert></Fade>
     : null
     return(
       <div>

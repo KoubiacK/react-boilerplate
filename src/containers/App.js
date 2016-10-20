@@ -9,11 +9,10 @@ import NavBar from '../components/Nav/NavBar.jsx'
 //auth
 import * as auth from '../api/auth/auth'
 
-
-export default class App extends Component {
+class App extends Component {
    constructor(props) {
      super(props)
-     this.state = { isAuthenticated: false }
+     this.state = { isAuthenticated: false, loaded: false }
    }
 
    componentDidMount() {
@@ -24,7 +23,6 @@ export default class App extends Component {
        let credentials = localStorage.getItem('auth:tkn').split('.', 2)
        let data = { ID: credentials[0], hash: credentials[1] }
        let that = this
-
        auth.relog(data, that)
      }
    }
@@ -44,7 +42,6 @@ export default class App extends Component {
          <NavBar />
            <Grid>
            <Row className='main-app-content'>
-
              {this.props.children}
            </Row>
          </Grid>

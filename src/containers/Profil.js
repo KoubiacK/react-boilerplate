@@ -14,14 +14,14 @@ function getGravatar(email) {
   return gravatar
 }
 
-
 export default class Profil extends Component {
   constructor(props) {
     super(props)
     this.state = {
       User: { email: '', avatar: '' },
       Error: { status: false, message: '' },
-      InputValues: { firstName: '', lastName: '', email: '', password1: '', password2: '' }
+      InputValues: { firstName: '', lastName: '', email: '', password1: '', password2: '' },
+      hadInputs: false
     }
   }
   componentWillMount() {
@@ -31,6 +31,7 @@ export default class Profil extends Component {
     let that = this
     auth.getProfil(hash, that)
   }
+
   handleChange = (e) => {
     switch (e.target.id) {
     case 'firstName':
@@ -69,7 +70,7 @@ export default class Profil extends Component {
     }
   }
   render() {
-    console.log('render', this.state.InputValues)
+    console.log(this.state.hadInputs)
     let Error = this.state.Error.status === true
     ? <Alert bsStyle='danger' style={{ display: 'block' }}>{ this.state.Error.message}</Alert>
     : null
@@ -78,13 +79,16 @@ export default class Profil extends Component {
     return(
       <Col xs={12} md={12}>
         <PageHeader>Profil</PageHeader>
+
+        {this.state.hadInputs &&
+          <div>
         <Col xs={12} md={4} style={{ textAlign: 'center' }}>
         <Image src={this.state.User.avatar.toString()} circle responsive style={{ margin: '0 auto' }}/>
         <LinkContainer to='/'><a href='#'>Changer d'avatar</a></LinkContainer>
         </Col>
+
         <Col xs={12} md={8}>
           { Error }
-
       <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <ControlLabel>Prénom:</ControlLabel>
@@ -111,5 +115,9 @@ export default class Profil extends Component {
           </Button>
         </Form>
         </Col>
-      </Col>)}
+        </div>
+      }
+      </Col>
+    )
+  }
 }

@@ -8,7 +8,7 @@ import * as LoginActions from '../../actions/LoginActions'
 import NavMenu from './NavMenu.jsx'
 import NavLogin from './NavLogin.jsx'
 
-export default class NavBar extends Component {
+class NavBar extends Component {
 
   render() {
     return(
