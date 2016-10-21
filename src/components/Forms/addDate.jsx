@@ -1,18 +1,29 @@
 import React, { Component } from 'react'
 import { Modal, Button, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
+//DatePicker
+import DatePicker from 'react-bootstrap-date-picker'
+import moment from 'moment'
 
 export default class addDate extends Component {
   constructor(props) {
     super(props)
-    this.state = { show: false }
+    this.state = { show: false,
+      startDate: moment().toISOString(),
+      search: '',
+    selectedCoordinate: null }
   }
+
   componentWillReceiveProps(nextProps) {
-    this.setState({ show: nextProps.modalShow})
+    this.setState({ show: nextProps.modalShow })
   }
 
   close = () => {
     this.setState({ show: false })
   }
+  handleChange = (date) => {
+    this.setState({ startDate: date })
+  }
+
   render() {
     return(
       <div>
@@ -23,28 +34,28 @@ export default class addDate extends Component {
             <Modal.Body>
               <h4>Text in a modal</h4>
               <Form>
-                <FormGroup controlId="formHorizontalEmail">
+                <FormGroup controlId='formHorizontalEmail'>
                   <Col componentClass={ControlLabel} sm={12}>
                     Date :
-                    <FormControl type="email" placeholder="Date" />
+                    <DatePicker dateFormat='DD/MM/YYYY' value={ this.state.startDate } onChange={ this.handleChange }/>
                   </Col>
                 </FormGroup>
-                <FormGroup controlId="formHorizontalEmail">
+                <FormGroup controlId='formHorizontalEmail'>
                   <Col componentClass={ControlLabel} sm={12}>
                     Lieu :
-                    <FormControl type="email" placeholder="Lieu" />
+                    <FormControl type='email' placeholder='Lieu' />
                   </Col>
                 </FormGroup>
-                <FormGroup controlId="formHorizontalEmail">
+                <FormGroup controlId='formHorizontalEmail'>
                   <Col componentClass={ControlLabel} sm={12}>
                     Cachet :
-                    <FormControl type="email" placeholder="Cachet" />
+                    <FormControl type='email' placeholder='Cachet' />
                   </Col>
                 </FormGroup>
-                <FormGroup controlId="formHorizontalEmail">
+                <FormGroup controlId='formHorizontalEmail'>
                   <Col componentClass={ControlLabel} sm={12}>
                     Heures :
-                    <FormControl type="email" placeholder="Heures" />
+                    <FormControl type='email' placeholder='Heures' />
                   </Col>
                 </FormGroup>
               </Form>

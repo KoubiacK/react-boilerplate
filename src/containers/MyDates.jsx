@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { PageHeader, Table, ButtonGroup, Button, Glyphicon } from 'react-bootstrap'
 import AddDate from '../components/Forms/addDate.jsx'
-
 export default class MyDates extends Component {
   constructor(props) {
     super(props)
