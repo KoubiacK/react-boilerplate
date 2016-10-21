@@ -3,6 +3,7 @@ import { Modal, Button, Form, FormGroup, FormControl, Col, ControlLabel } from '
 //DatePicker
 import DatePicker from 'react-bootstrap-date-picker'
 import moment from 'moment'
+import Geosuggest from 'react-geosuggest'
 
 export default class addDate extends Component {
   constructor(props) {
@@ -23,7 +24,9 @@ export default class addDate extends Component {
   handleChange = (date) => {
     this.setState({ startDate: date })
   }
-
+onSuggestSelect = (suggest) => {
+  console.log(suggest)
+}
   render() {
     return(
       <div>
@@ -43,12 +46,17 @@ export default class addDate extends Component {
                 <FormGroup controlId='formHorizontalEmail'>
                   <Col componentClass={ControlLabel} sm={12}>
                     Lieu :
-                    <FormControl type='email' placeholder='Lieu' />
+                    <Geosuggest
+          placeholder='Start typing!'
+          initialValue=''
+          onSuggestSelect={this.onSuggestSelect}
+          location={new google.maps.LatLng(53.558572, 9.9278215)}
+          radius='20' />
                   </Col>
                 </FormGroup>
                 <FormGroup controlId='formHorizontalEmail'>
                   <Col componentClass={ControlLabel} sm={12}>
-                    Cachet :
+                    Cachet (brut) :
                     <FormControl type='email' placeholder='Cachet' />
                   </Col>
                 </FormGroup>

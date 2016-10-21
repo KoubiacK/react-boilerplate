@@ -40,3 +40,10 @@ body {
 .control-label {
   text-align: left !important;
 }
+
+//GeoSuggest
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
+}
